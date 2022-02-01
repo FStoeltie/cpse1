@@ -1,16 +1,44 @@
-.PHONY: main test clean
+#############################################################################
+#
+# Project Makefile
+#
+# (c) Wouter van Ooijen (www.voti.nl) 2016
+#
+# This file is in the public domain.
+# 
+#############################################################################
 
-main: main.o set.hpp
-	g++ -std=c++17 main.o -o main.exe
+# source & header files in this project (main.cpp is automatically assumed)
 
-main.o:
-	g++ -std=c++17 -c main.cpp
+# HEADERS += note.hpp
+# HEADERS += melody.hpp
+# HEADERS += note_player.hpp
+# HEADERS += fur_elise.hpp
 
-test: test.o set.hpp
-	g++ -std=c++17 test.o -o test.exe
+# HEADERS += note_player_windows.hpp
+# SOURCES += note_player_windows.cpp
 
-test.o: 
-	g++ -std=c++17 -c test.cpp
+# HEADERS += note_player_gpio.hpp
+# SOURCES += note_player_gpio.cpp
 
-set.o:
-	g++ --std=c++17 -c set.hpp
+# HEADERS += rtttl_player.hpp
+# SOURCES += rtttl_player.cpp
+
+# HEADERS += note_player_melody_generator.hpp
+# SOURCES += note_player_melody_generator.cpp
+
+# # other places to look for files for this project
+# SEARCH  := 
+
+# CPP_LANGUAGE      ?= -std=c++17
+# C_LANGUAGE        ?= -std=c11
+
+SOURCES += bufferchange.asm
+SOURCES += compressed.asm
+
+
+# set REATIVE to the next higher directory 
+# and defer to the Makefile.due there
+RELATIVE := $(RELATIVE)../
+# include $(RELATIVE)Makefile.due
+include $(RELATIVE)Makefile.due
