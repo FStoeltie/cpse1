@@ -1,0 +1,29 @@
+.text
+
+msg: .asciz "test1234567890\n" 
+
+
+swap:
+	PUSH {R0-R5, LR}
+	ldr R0, =msg	@ load message
+	MOV R1, #1 		@ mov value of #1 in R1
+	MOV R2, R0 		@ mov value of register R0 into R2
+	MOV R3, #0		@ mov value of #0 in R3
+loop:
+	CMP R1, #10		@ compare R3, value to see if end of buffer
+	BEQ done 		@ if R3 equal to value of end of buffer go to branch done
+	ADD R5, R0, R1
+	LDRB R4, [R5]	@ load byte into register R4 from the address that R0 points to with offset found in register R1
+	STRB R4, [R2] 	@ Store the result of R4 into the location that R2 points to - which should be the prev address
+	ADD R1, R1, #1
+	MOV R0, R4
+	bl put_char
+done:
+	POP {R0-R5, PC}
+
+
+.global application
+application:
+   @ push { r5, lr }
+   @ ldr r0, =msg
+   bl swap
